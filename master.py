@@ -38,7 +38,7 @@ while True:
         command = command.encode()
 
         try:
-            sock.settimeout(4.0)
+            sock.settimeout(3.0)
             sock.send(command)
             result = sock.recv(1024).decode()
             print(result)

