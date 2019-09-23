@@ -28,14 +28,25 @@ while True:
     if command == '':
     	continue
 
-    command = command.encode()
+    elif command == "exit":
+        print("[!] Closing connection with the server")
+        sock.close()
+        exit(1)
 
-    try:
-        sock.send(command)
-        result = sock.recv(1024).decode()
-        print(result)
-    except Exception as err:
-        print("[-] Something went wrong. Server exited.")
-        break
+    else:
+        #print("[DEBUG] command = ", command)
+        command = command.encode()
+
+        try:
+            sock.settimeout(4.0)
+            sock.send(command)
+            result = sock.recv(1024).decode()
+            print(result)
+        except socket.timeout:
+            print("[-] Invalid command. Time out.")
+            continue
+        except Exception as err:
+            print("[-] Something went wrong. Server exited.")
+            break
 
 sock.close()

