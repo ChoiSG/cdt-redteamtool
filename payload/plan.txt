@@ -26,4 +26,9 @@ Payload lists
 5. bash logout 
 6. service 
 7. Just run the god damn binary dude 
-8. 
+8. Webshell pog? 
+
+9. SSH Misconfiguration --> Overwrite sshdconfig 
+10. PAM backdoor 
+11. SSH key? POG? 
+12. sudoers backdoor (ex. ALL ALL=(ALL)NOPASSWD:ALL >> /etc/sudoers 
