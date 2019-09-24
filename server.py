@@ -276,6 +276,7 @@ Param:
 Return:
     - (socket) sock = Binded socket. This is going to be the main server socket. 
 """
+# Uhm shouldn't this be serverSetup(host, port) with sock.bind((host,port)) ? Debug?
 def serverSetup(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
