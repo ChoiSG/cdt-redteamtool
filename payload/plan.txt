@@ -1,0 +1,29 @@
+(pre-stage) Make sure to talk with the grey team and setup the correct ip address
+for the callbacks 
+
+1. Prebake, use a tar file to transfer over and tar -xvf 
+
+2. Run setup to install necessary tools in the victim machine  
+
+3. Run deploy to deploy all the payloads 
+    
+4. Setup server on the attacker machine and hope for all the callbacks to come 
+
+===============================================================================
+
+Deploy setting 
+
+1. client binary 
+2. deployment script 
+
+===============================================================================
+Payload lists 
+
+1. .bashrc
+2. alias -->  
+3. shimmed binaries 
+4. cronjob 
+5. bash logout 
+6. service 
+7. Just run the god damn binary dude 
+8. 
