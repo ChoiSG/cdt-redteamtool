@@ -43,7 +43,7 @@ shim(){
     gcc ./iptables/drop.c -o ./iptables/drop
     cp ./iptables/drop /bin/fw
     cp ./iptables/iptables /sbin/xtables-single 
-    chmod 777 xtables-single
+    chmod 777 /sbin/xtables-single
 
     xtables=`which iptables`
     ln -sf /sbin/xtables-single $xtables

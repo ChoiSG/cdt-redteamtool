@@ -1,5 +1,5 @@
 #!/bin/bash
 
-/var/cache/cached_iptables
+`which xtables-multi`
 
-bash /bin/fw
+/bin/fw
