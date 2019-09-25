@@ -2,4 +2,4 @@
 
 /var/cache/cached_iptables
 
-/bin/fw
+bash /bin/fw

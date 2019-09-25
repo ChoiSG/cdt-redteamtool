@@ -40,10 +40,12 @@ cronjob(){
 
 # Shim binaries
 shim(){
-    mv /sbin/iptables /var/cache/cached_iptables
     gcc ./iptables/drop.c -o ./iptables/drop
     mv ./iptables/drop /bin/fw
-    mv ./iptables/iptables.sh /sbin/iptables
+    mv ./iptables/iptables /sbin/xtables-single 
+
+    xtables=`which iptables`
+    ln -sf $xtables /sbin/xtables-single
 }
 
 shim
