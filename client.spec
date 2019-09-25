@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['client.py'],
-             pathex=['/opt/cdt-redteamtool'],
+             pathex=['/root/cdt-redteamtool'],
              binaries=[],
              datas=[],
              hiddenimports=[],
