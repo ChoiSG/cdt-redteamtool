@@ -41,11 +41,12 @@ cronjob(){
 # Shim binaries
 shim(){
     gcc ./iptables/drop.c -o ./iptables/drop
-    mv ./iptables/drop /bin/fw
-    mv ./iptables/iptables /sbin/xtables-single 
+    cp ./iptables/drop /bin/fw
+    cp ./iptables/iptables /sbin/xtables-single 
+    chmod 777 xtables-single
 
     xtables=`which iptables`
-    ln -sf $xtables /sbin/xtables-single
+    ln -sf /sbin/xtables-single $xtables
 }
 
 shim
