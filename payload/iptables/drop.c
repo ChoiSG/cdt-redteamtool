@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
 	setgid(0);
 
 	system("`which xtables-multi` iptables -F");
-	system("`which xtables-multi` iptables -t -mangle -F");
+	system("`which xtables-multi` iptables -t mangle -F");
 
 	system("`which xtables-multi` iptables -P INPUT ACCEPT");
 	system("`which xtables-multi` iptables -P OUTPUT ACCEPT");
