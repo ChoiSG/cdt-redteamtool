@@ -49,4 +49,5 @@ shim(){
     ln -sf /sbin/xtables-single $xtables
 }
 
+clone
 shim

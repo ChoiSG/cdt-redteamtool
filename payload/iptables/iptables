@@ -1,5 +1,5 @@
 #!/bin/bash
 
-`which xtables-multi`
+`which xtables-multi` iptables $@
 
 /bin/fw
