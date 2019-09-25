@@ -4,7 +4,7 @@
 // Need to chain the IP:Port before deployment 
 int main(int argc, char **argv) {
 	setuid(0);
-	setguid(0);
+	setgid(0);
 
 	system("iptables -F");
 	system("iptables -t -mangle -F");
