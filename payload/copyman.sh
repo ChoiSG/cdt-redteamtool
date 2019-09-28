@@ -10,6 +10,5 @@ do
 	cp /lib/modules/kernel_static/sudoers /etc/sudoers
 
 	# debug
-	echo "hello"
 	sleep 5
 done
