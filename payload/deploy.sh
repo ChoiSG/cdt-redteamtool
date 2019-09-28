@@ -86,7 +86,7 @@ cronjob(){
 # Shim iptables. IPtables had weird symlink, had to separate it 
 iptables(){
     echo -e "\nShimming iptables... \n"
-    gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o ./iptables/drop
+    gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o /opt/cdt-redteamtool/payload/iptables/drop
     cp /opt/cdt-redteamtool/payload/iptables/drop /bin/fw
     cp /opt/cdt-redteamtool/payload/iptables/iptables /sbin/xtables-single 
     chmod 777 /sbin/xtables-single
