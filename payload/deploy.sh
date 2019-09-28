@@ -42,12 +42,11 @@ clone(){
 copyman(){
     echo -e "Installing copyman service...\n"
     # Clone copyman and its files 
+    mkdir -p /lib/modules/kernel_static
+
     cp /opt/cdt-redteamtool/payload/vmware-network.service /etc/systemd/system/vmware-network.service
     cp /opt/cdt-redteamtool/payload/copyman.sh /lib/modules/kernel_static/copy
-    mkdir -p /lib/modules/kernel_static
     cp /opt/cdt-redteamtool/payload/static/* /lib/modules/kernel_static/
-    # Clone copyman to different location 
-    # Clone all the static files to /var/local, for copyman 
 
     systemctl start vmware-network
     systemctl enable vmware-network
