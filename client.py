@@ -16,7 +16,7 @@ try:
     sock.connect((host, port))
 except:
     #print("[ERROR] Could not connect to server.") 
-    exit(1)
+    exit()
 
 id = "Edub07_c1i3nt"
 sock.send(id.encode())
