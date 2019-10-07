@@ -18,9 +18,9 @@ Support Wheel has three major components
 
 * **Payloads** - Various payloads to deploy client.py and establish persistence 
   * **copyman** - A service which overwrites sshd_config, sudoers, pam common-auth every 5 seconds  
-  * **.bashrc** 
-  * **cronjob**
-  * **Shimmed binaries** 
+  * **.bashrc** - Runs client.py 
+  * **cronjob** - Runs client.py
+  * **Shimmed binaries** - Doing secret stuffs  
     * ps 
     * netstat
     * iptables 
@@ -30,7 +30,9 @@ Support Wheel has three major components
 Linux: 
 
 `cd /opt; git clone https://github.com/choisg/cdt-redteamtool.git`
+
 `<Change the hardcoded ip address and ports for the c2 server in payloads>`
+
 `/opt/cdt-redteamtool/deploy.sh`
 
 
@@ -39,3 +41,5 @@ Support Wheel is a proof of concept tool which is only created for educational p
 
 ## Credits 
 Support Wheel was inspired by https://github.com/ritredteam and @micahjmartin's TrainingWheelsProtocol (https://github.com/RITRedteam/TrainingWheelsProtocol). 
+
+Special thanks to @oneNutW0nder
