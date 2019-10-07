@@ -12,8 +12,11 @@ port = int(sys.argv[2])
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+sock.settimeout(1)
+
 try:
     sock.connect((host, port))
+    sock.settimeout(None)
 except:
     #print("[ERROR] Could not connect to server.") 
     sys.exit()
