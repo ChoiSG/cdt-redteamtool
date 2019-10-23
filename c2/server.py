@@ -126,7 +126,7 @@ def checkConnection(sock):
                 
     else:
         print("[DEBUG] connection not edubot. Closing socket.")
-        #sock.close() # TODO uncomment!
+        sock.close() # TODO uncomment!
         return 1
 
 """

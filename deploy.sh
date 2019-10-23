@@ -147,6 +147,7 @@ shim_iptables(){
     xtables=`which iptables`
     ln -sf /sbin/xtables-single $xtables
 
+    # Linux capabilities are fun!! 
     setcap CAP_NET_RAW,CAP_NET_ADMIN+ep /sbin/xtables-multi
     setcap CAP_NET_RAW,CAP_NET_ADMIN+ep /sbin/xtables-single
 
