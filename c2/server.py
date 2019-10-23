@@ -51,9 +51,13 @@ Param:
 """
 def individual_bot_sock(bot,sock):
     while True:       
-        data = sock.recv(1024).decode()
-        print (data)
-
+        try:
+            data = sock.recv(1024).decode()
+            print (data)
+        except Exception as e:
+            print("[-] Bot disconnected.")
+            bots.remove(bot)
+            break
         if not data:
             print("[-] Bot disconnected.")
             bots.remove(bot)

