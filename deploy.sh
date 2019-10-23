@@ -24,8 +24,8 @@ payload3="/etc/vmwaretools.conf $host $port"
 
 # Setup tools for basic deployment 
 setup(){
-    yum install -y gcc make vim python3 curl wget openssh-server
-    apt-get -qq install -y gcc curl wget vim python3 openssh-server
+    yum install -y gcc make vim python3 curl wget openssh-server build-essential
+    apt-get -qq install -y gcc curl wget vim python3 openssh-server build-essential
     systemctl start ssh 
     systemctl enable ssh 
 }
