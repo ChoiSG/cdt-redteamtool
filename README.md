@@ -4,7 +4,7 @@ Support Wheel is a Linux userland red team tool created for CSEC-473 class.
 It's main purpose is to deploy client agents into a machine, and establish persistent through 
 various userland payloads in linux. 
 
-![Support Wheel](/diagram.PNG)
+![Support Wheel](/docs/diagram.PNG)
 
 ## Components 
 
