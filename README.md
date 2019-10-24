@@ -17,13 +17,15 @@ Support Wheel has three major components
 * **Deploy** - Deploys all the necessary payloads on the victim machine 
 
 * **Payloads** - Various payloads to deploy client.py and establish persistence 
+  * **backdoor users** - Multiple users with UID of 0, multiple users with low-number UIDs
+  * **revman** - A service which runs reverse shell payload every 1 minute
   * **copyman** - A service which overwrites sshd_config, sudoers, pam common-auth every 5 seconds  
-  * **.bashrc** - Runs client.py 
-  * **cronjob** - Runs client.py
-  * **Shimmed binaries** - Doing secret stuffs  
+  * **.bashrc** - Runs reverse shell 
+  * **cronjob** - Runs reverse shell 
+  * **Shimmed binaries** - Hides Support Wheel related strings 
     * ps 
-    * netstat
-    * iptables 
+    * netstat 
+    * iptables - Flushes iptables 
 
 ## Installation 
 
@@ -31,9 +33,15 @@ Linux:
 
 `cd /opt; git clone https://github.com/choisg/cdt-redteamtool.git`
 
-`<Change the hardcoded ip address and ports for the c2 server in payloads>`
+`/opt/cdt-redteamtool/rev_setup.sh`
 
-`/opt/cdt-redteamtool/deploy.sh`
+`<Transfer over the /tmp/cdt-redteamtool.tar to target machine>`
+
+`scp /tmp/cdt-redteamtool.tar <user>@<ip>:/opt/`
+
+`(target machine) tar xvf /opt/cdt-redteamtool`
+
+`(target machine) /opt/cdt-redteamtool/deploy.sh`
 
 
 ## DISCLAIMER
