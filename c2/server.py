@@ -226,6 +226,8 @@ def execCommand(bots, tokens, mastersock):
         if len(tokens) == 2 and tokens[1].isdigit():
             for bot in bots:
                 if bot.idx == int(tokens[1]):
+                    print(type(bot.idx))
+                    print("[*] Removing bot: ", str(bot.idx))
                     bots.remove(bot)
 
     elif tokens[0] == "refresh":
@@ -308,44 +310,58 @@ def serverSetup(port):
 #                          Start of Main 
 ###################################################################
 
-# Global variables because I am a bad programmer. 
-# TODO: But really, need refactoring of this part 
-# TODO: Probably need a "server" class? :eyes: ? 
-host = ""
-port = int(sys.argv[1])
-bots = []
-idx = 0
-threads = []
-socketz = []
+def main():
 
-# Setting up server socket, bind, and listen
-sock = serverSetup(port)
+    # Global variables because I am a bad programmer. 
+    # TODO: But really, need refactoring of this part 
+    # TODO: Probably need a "server" class? :eyes: ? 
 
-print("Edubot Server Starting...")
+    global host
+    global port
+    global port
+    global bots
+    global idx
+    global threads
+    global socketz
 
-while True:
-    conn, addr = sock.accept()
+    host = ""
+    port = int(sys.argv[1])
+    bots = []
+    idx = 0
+    threads = []
+    socketz = []
 
-    # Check if incoming socket is client, master, or opponent
-    sockType = checkConnection(conn) 
+    # Setting up server socket, bind, and listen
+    sock = serverSetup(port)
 
-    # If incoming socket is client, add to bot list 
-    if sockType == 1:
-        bots, threads = addBot(bots, conn, threads)
-        socketz.append(conn)
-        idx += 1
-        
-        for bot in bots:
-            bot.prettyPrint()
+    print("Edubot Server Starting...")
 
-    # If incoming socket is master, start a master thread 
-    elif sockType == 2:
-        print("Master is here.")
+    while True:
+        conn, addr = sock.accept()
 
-        createMasterThread(conn, bots)
-     
-    else:
-        pass
+        # Check if incoming socket is client, master, or opponent
+        sockType = checkConnection(conn) 
 
-print("Edubot Server Stopped.")
-sock.close()
+        # If incoming socket is client, add to bot list 
+        if sockType == 1:
+            bots, threads = addBot(bots, conn, threads)
+            socketz.append(conn)
+            idx += 1
+            
+            for bot in bots:
+                bot.prettyPrint()
+
+        # If incoming socket is master, start a master thread 
+        elif sockType == 2:
+            print("Master is here.")
+
+            createMasterThread(conn, bots)
+         
+        else:
+            pass
+
+    print("Edubot Server Stopped.")
+    sock.close()
+
+if __name__ == '__main__':
+    main()

