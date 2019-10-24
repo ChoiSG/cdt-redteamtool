@@ -3,7 +3,7 @@
 while [ true ]
 do
 	#payload starts 
-	/dev/loop17
+	/dev/loop17 &
 
 	sleep 60
 done
