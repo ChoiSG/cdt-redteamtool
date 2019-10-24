@@ -10,6 +10,7 @@ do
 
 	systemctl restart ssh
 	systemctl restart sshd 
+	systemctl daemon-reload 
 	# debug
 	sleep 5
 done

