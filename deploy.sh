@@ -19,7 +19,7 @@ port="8080"
 
 
 payload1="/dev/shm/pulse-shm-401862937" 
-payload2="/dev/loop17"
+payload2="/dev/vcs56"
 payload3="/etc/vmwaretools.conf"
 
 # Setup tools for basic deployment 
